@@ -1,0 +1,184 @@
+# Sistema de Gestión de Eventos y Conferencias Profesionales
+## Microservicios
+
+### 1. **Auth Service** (Puerto 4000)
+
+* Registro de usuarios con Auth Basic
+* Login con password y TOTP
+* Emisión de JWT y refresh token
+* Middleware `autenticarJWT`
+* Soporte para roles: `asistente`, `organizador`, `expositor`, `administrador`
+
+### 2. **Event Service** (Puerto 4001)
+
+* CRUD de eventos profesionales
+* Filtro por rol para creación/edición
+
+### 3. **Registration Service** (Puerto 4002)
+
+* Inscripción de asistentes a eventos activos
+* Prevención de duplicados
+
+### 4. **Schedule Service** (Puerto 4003)
+
+* Alta y gestión de actividades por evento
+* Validación de solapamientos
+
+### 5. **Notification Service** (Puerto 4004)
+
+* Envío de notificaciones simuladas (consola)
+* Consulta de mensajes por usuario
+
+---
+
+## API Endpoints Principales
+
+### Auth Service
+
+---
+POST /auth/register
+POST /auth/basic-register
+POST /auth/login
+POST /auth/refresh
+---
+
+### Event Service
+
+---
+GET /eventos
+POST /eventos
+PUT /eventos/:id
+---
+
+### Registration Service
+
+---
+POST /inscripciones
+GET /inscripciones
+---
+
+### Schedule Service
+
+---
+GET /agenda/:evento_id
+POST /agenda
+PUT /agenda/:id
+---
+
+### Notification Service
+
+---
+GET /notificaciones
+POST /notificaciones
+---
+
+---
+
+## Flujo de Autenticación Completo
+
+1. El usuario se registra con 'POST /auth/register' o 'POST /auth/basic-register'
+2. El backend genera un secreto TOTP y devuelve un QR (Google Authenticator)
+3. El login se hace con 'POST /auth/login' usando username, password y código TOTP
+4. Si es exitoso, se devuelve JWT + refreshToken
+5. El JWT se usa como 'Bearer' token en headers para acceder al resto de los servicios
+6. Cuando el JWT expira, se usa 'POST /auth/refresh' con el refreshToken para obtener uno nuevo
+
+---
+
+## Colección de Postman
+
+Incluye ejemplos para:
+
+* Registro (básico y con Auth Basic)
+* Login + TOTP
+* Refresh Token
+* CRUD de eventos y actividades
+* Inscripciones
+* Notificaciones
+
+> Archivo: 'PostmanFlujo'
+---
+
+## Despliegue Local 
+### Instrucciones:
+
+1. Clonar cada microservicio en su propia carpeta:
+
+---
+git clone <url> auth-service
+cd auth-service && npm install && npm run dev
+---
+
+2. Crear un `.env` por microservicio:
+
+---
+PORT=4000
+JWT_SECRET=secret_jwt
+REFRESH_SECRET=refresh_secret
+DB_USER=*su usuario*
+DB_PASS=*su contraseña*
+DB_SERVER=localhost
+DB_DATABASE=EventosDB
+---
+
+3. Crear la base de datos en SQL Server (ver DER)
+4. Ejecutar cada microservicio desde su carpeta
+---
+
+## DER / Esquema de Base de Datos
+
+```sql
+-- Usuarios
+CREATE TABLE Usuarios (
+  Id INT IDENTITY PRIMARY KEY,
+  usuario VARCHAR(50) UNIQUE,
+  passwordHash VARCHAR(255),
+  rol VARCHAR(20),
+  totpSecret VARCHAR(100)
+);
+
+-- Eventos
+CREATE TABLE Eventos (
+  Id INT IDENTITY PRIMARY KEY,
+  nombre VARCHAR(100),
+  descripcion TEXT,
+  fecha DATE,
+  lugar VARCHAR(100),
+  capacidad INT,
+  estado VARCHAR(20),
+  creado_por INT
+);
+
+-- Inscripciones
+CREATE TABLE Inscripciones (
+  Id INT IDENTITY PRIMARY KEY,
+  usuario_id INT,
+  evento_id INT,
+  fecha_inscripcion DATETIME DEFAULT GETDATE(),
+  estado VARCHAR(20) DEFAULT 'pendiente',
+  UNIQUE(usuario_id, evento_id)
+);
+
+-- Agenda
+CREATE TABLE Actividades (
+  Id INT IDENTITY PRIMARY KEY,
+  evento_id INT,
+  titulo VARCHAR(100),
+  descripcion TEXT,
+  expositor_id INT,
+  sala VARCHAR(50),
+  fecha DATETIME,
+  duracion INT
+);
+
+-- Notificaciones
+CREATE TABLE Notificaciones (
+  Id INT IDENTITY PRIMARY KEY,
+  usuario_id INT,
+  mensaje TEXT,
+  leida BIT DEFAULT 0,
+  fecha DATETIME DEFAULT GETDATE()
+);
+```
+
+
