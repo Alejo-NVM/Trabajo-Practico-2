@@ -1,0 +1,369 @@
+{
+	"info": {
+		"_postman_id": "f254b718-08a4-4c5d-86f0-3ae20289cd14",
+		"name": "Trabajo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45342304",
+		"_collection_link": "https://trembolonaaddict.postman.co/workspace/Trembolona-Addict's-Workspace~f1639623-7f73-4640-8445-aeec39912812/collection/45342304-f254b718-08a4-4c5d-86f0-3ae20289cd14?action=share&source=collection_link&creator=45342304"
+	},
+	"item": [
+		{
+			"name": "Registro",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic dXN1YXJpbzpwYXNzd29yZA==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"asistente\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"asistente\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"AdminSupremos\",\r\n  \"password\": \"123456\",\r\n  \"totpCode\": \"138781\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear evento",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsInVzZXJuYW1lIjoiQWRtaW5TdXByZW1vcyIsInJvbGUiOiJhZG1pbmlzdHJhZG9yIiwiaWF0IjoxNzUxMzE4MTQzLCJleHAiOjE3NTEzMjE3NDN9.903ZNZXWP1gGMEiLBvCWolfps09qJugMOafamCmebIw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Evento de Pruebas\",\r\n  \"descripcion\": \"una buena prueba\",\r\n  \"fecha\": \"2025-08-01\",\r\n  \"lugar\": \"Sala C\",\r\n  \"capacidad\": 100,\r\n  \"estado\": \"activo\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4001/eventos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4001",
+					"path": [
+						"eventos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar evento",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsInVzZXJuYW1lIjoiQWRtaW5TdXByZW1vcyIsInJvbGUiOiJhZG1pbmlzdHJhZG9yIiwiaWF0IjoxNzUxMDYxNjk4LCJleHAiOjE3NTEwNjUyOTh9.vJ0xP8f1a2-eWo7q5t3rlknDjV2s5iuv3qSHgR2zGSs",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Evento de Prueba\",\r\n  \"descripcion\": \"una buena prueba\",\r\n  \"fecha\": \"2025-07-01\",\r\n  \"lugar\": \"Sala C\",\r\n  \"capacidad\": 100,\r\n  \"estado\": \"activo\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4001/eventos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4001",
+					"path": [
+						"eventos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Inscribirse a evento(solo asistentes)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsInVzZXJuYW1lIjoiYXNpc3RlbnRlIiwicm9sZSI6ImFzaXN0ZW50ZSIsImlhdCI6MTc1MTA2MjcwMiwiZXhwIjoxNzUxMDY2MzAyfQ.5tHvbJ3bYplRvvFNLgFzc0DLOgknFBuMW_xV3DLJJ7g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"evento_id\": 1\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4002/inscripciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4002",
+					"path": [
+						"inscripciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar eventos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsInVzZXJuYW1lIjoiYXNpc3RlbnRlIiwicm9sZSI6ImFzaXN0ZW50ZSIsImlhdCI6MTc1MTA2MjcwMiwiZXhwIjoxNzUxMDY2MzAyfQ.5tHvbJ3bYplRvvFNLgFzc0DLOgknFBuMW_xV3DLJJ7g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"id\": 1,\r\n    \"fecha_inscripcion\": \"2025-06-27T18:00:00.000Z\",\r\n    \"estado\": \"activa\",\r\n    \"evento\": \"Nombre del Evento\"\r\n  }\r\n]\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4002/inscripciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4002",
+					"path": [
+						"inscripciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear actividad",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsInVzZXJuYW1lIjoiQWRtaW5TdXByZW1vcyIsInJvbGUiOiJhZG1pbmlzdHJhZG9yIiwiaWF0IjoxNzUxMzE4MTQzLCJleHAiOjE3NTEzMjE3NDN9.903ZNZXWP1gGMEiLBvCWolfps09qJugMOafamCmebIw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"evento_id\": 1,\r\n  \"titulo\": \"Charla de Cierre\",\r\n  \"descripcion\": \"Reflexión final sobre el evento\",\r\n  \"sala\": \"Auditorio A\",\r\n  \"expositor_id\": 1,\r\n  \"inicio\": \"2025-07-02T17:00:00\",\r\n  \"fin\": \"2025-07-02T18:00:00\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4003/agenda",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4003",
+					"path": [
+						"agenda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar actividad",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsInVzZXJuYW1lIjoiQWRtaW5TdXByZW1vcyIsInJvbGUiOiJhZG1pbmlzdHJhZG9yIiwiaWF0IjoxNzUxMzE4MTQzLCJleHAiOjE3NTEzMjE3NDN9.903ZNZXWP1gGMEiLBvCWolfps09qJugMOafamCmebIw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4003/agenda/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4003",
+					"path": [
+						"agenda",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar notificaciones",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsInVzZXJuYW1lIjoiQWRtaW5TdXByZW1vcyIsInJvbGUiOiJhZG1pbmlzdHJhZG9yIiwiaWF0IjoxNzUxMzE4MTQzLCJleHAiOjE3NTEzMjE3NDN9.903ZNZXWP1gGMEiLBvCWolfps09qJugMOafamCmebIw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4004/notificaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4004",
+					"path": [
+						"notificaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear notificaciones",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsInVzZXJuYW1lIjoiQWRtaW5TdXByZW1vcyIsInJvbGUiOiJhZG1pbmlzdHJhZG9yIiwiaWF0IjoxNzUxMzE4MTQzLCJleHAiOjE3NTEzMjE3NDN9.903ZNZXWP1gGMEiLBvCWolfps09qJugMOafamCmebIw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"usuario_id\": 13,\r\n  \"mensaje\": \"Comer semillas del hermitaño\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4004/notificaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4004",
+					"path": [
+						"notificaciones"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
